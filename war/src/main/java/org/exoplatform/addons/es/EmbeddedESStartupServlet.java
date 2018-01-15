@@ -38,7 +38,7 @@ public class EmbeddedESStartupServlet extends HttpServlet {
   private static final Log LOG = ExoLogger.getLogger(EmbeddedESStartupServlet.class);
 
   public static final String ES_EMBEDDED_ENABLED_PROPERTY_NAME = "exo.es.embedded.enabled";
-  public static final String ES_EMBEDDED_CONFIGURATION_FILE = "${exo.es.embedded.configuration.file}";
+  public static final String ES_EMBEDDED_CONFIGURATION_FILE = "exo.es.embedded.configuration.file";
 
   protected Node node;
 
@@ -55,8 +55,8 @@ public class EmbeddedESStartupServlet extends HttpServlet {
       return;
     }
 
-    String esEmbeddedConfigurationPath = Deserializer.resolveString(ES_EMBEDDED_CONFIGURATION_FILE);
-    if (StringUtils.isBlank(esEmbeddedConfigurationPath) || esEmbeddedConfigurationPath.equals(ES_EMBEDDED_CONFIGURATION_FILE)) {
+    String esEmbeddedConfigurationPath = PropertyManager.getProperty(ES_EMBEDDED_CONFIGURATION_FILE);
+    if (StringUtils.isBlank(esEmbeddedConfigurationPath)) {
       LOG.info("Use default ES Embedded configuration file location: /WEB-INF/elasticsearch.yml");
       esEmbeddedConfigurationPath = "/WEB-INF/elasticsearch.yml";
     } else {
