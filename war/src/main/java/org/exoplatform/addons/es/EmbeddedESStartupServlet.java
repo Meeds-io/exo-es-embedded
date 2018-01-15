@@ -22,7 +22,7 @@ import org.elasticsearch.node.NodeValidationException;
 import org.elasticsearch.plugins.Plugin;
 import org.elasticsearch.transport.Netty4Plugin;
 
-import org.exoplatform.container.PortalContainer;
+import org.exoplatform.commons.utils.PropertyManager;
 import org.exoplatform.container.RootContainer;
 import org.exoplatform.container.xml.Deserializer;
 import org.exoplatform.services.log.ExoLogger;
@@ -37,15 +37,19 @@ public class EmbeddedESStartupServlet extends HttpServlet {
 
   private static final Log LOG = ExoLogger.getLogger(EmbeddedESStartupServlet.class);
 
-  public static final String ES_EMBEDDED_ENABLED_PROPERTY_NAME = "${exo.es.embedded.enabled}";
+  public static final String ES_EMBEDDED_ENABLED_PROPERTY_NAME = "exo.es.embedded.enabled";
   public static final String ES_EMBEDDED_CONFIGURATION_FILE = "${exo.es.embedded.configuration.file}";
 
   protected Node node;
 
   @Override
   public void init() throws ServletException {
+    // Make sure RootContainer is started before getting properties
+    // This is used to load exo.properties before checking Embedded ES
+    // is enabled or not
+    RootContainer.getInstance();
     // check if embedded ES must be started or not (defaults to true)
-    String esEmbeddedEnabled = Deserializer.resolveString(ES_EMBEDDED_ENABLED_PROPERTY_NAME);
+    String esEmbeddedEnabled = PropertyManager.getProperty(ES_EMBEDDED_ENABLED_PROPERTY_NAME);
     if(esEmbeddedEnabled != null && esEmbeddedEnabled.trim().equals("false")) {
       LOG.info("ES Embedded node startup has been disabled");
       return;
