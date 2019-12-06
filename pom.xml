@@ -24,7 +24,7 @@
   <parent>
     <artifactId>addons-parent-pom</artifactId>
     <groupId>org.exoplatform.addons</groupId>
-    <version>8-RC01</version>
+    <version>12-M01</version>
   </parent>
   <groupId>org.exoplatform.addons.exo-es-embedded</groupId>
   <artifactId>exo-es-embedded-parent</artifactId>
@@ -43,7 +43,7 @@
     <url>https://github.com/exoplatform/exo-es-embedded</url>
   </scm>
   <properties>
-    <org.exoplatform.platform.version>5.1.x-SNAPSHOT</org.exoplatform.platform.version>
+    <org.exoplatform.social.version>6.0.x-lightweight-SNAPSHOT</org.exoplatform.social.version>
     <servlet.version>3.0.1</servlet.version>
     <!-- Issue with the PLF pom parent that trigger lucene 3.6.2 (Only working with elastic version < 0.20.6) -->
     <lucene.version>6.6.1</lucene.version>
@@ -59,9 +59,9 @@
     <dependencies>
       <!-- Import versions of external dependencies to use -->
       <dependency>
-        <groupId>org.exoplatform.platform</groupId>
-        <artifactId>platform</artifactId>
-        <version>${org.exoplatform.platform.version}</version>
+        <groupId>org.exoplatform.social</groupId>
+        <artifactId>social</artifactId>
+        <version>${org.exoplatform.social.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
